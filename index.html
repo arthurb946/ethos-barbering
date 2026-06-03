@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ethos Contemporary Barbering</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --stone:    #f0ece6;
+    --stone-2:  #e8e2d9;
+    --olive:    #454d3b;
+    --olive-lt: #6b7560;
+    --cream:    #faf8f4;
+    --charcoal: #1e1e1c;
+    --cream-dk: #f0ece6;
+    --text:     #2a2a27;
+    --muted:    #7a7870;
+  }
+
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--text);
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 28px 52px;
+    transition: background 0.4s, padding 0.4s;
+  }
+  nav.scrolled {
+    background: rgba(250,248,244,0.94);
+    backdrop-filter: blur(12px);
+    padding: 18px 52px;
+    border-bottom: 1px solid rgba(69,77,59,0.12);
+  }
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px; font-weight: 400;
+    letter-spacing: 0.22em; text-transform: uppercase;
+    color: #fff; transition: color 0.4s; text-decoration: none;
+  }
+  nav.scrolled .nav-logo { color: var(--olive); }
+  .nav-links { display: flex; gap: 36px; list-style: none; }
+  .nav-links a {
+    font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
+    color: rgba(255,255,255,0.8); text-decoration: none;
+    transition: color 0.3s; font-weight: 400;
+  }
+  nav.scrolled .nav-links a { color: var(--olive-lt); }
+  .nav-links a:hover { color: #fff; }
+  nav.scrolled .nav-links a:hover { color: var(--olive); }
+  .nav-book {
+    font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--olive); background: rgba(255,255,255,0.95);
+    border: none; padding: 11px 22px; cursor: pointer;
+    text-decoration: none; font-family: 'DM Sans', sans-serif;
+    font-weight: 500; transition: background 0.3s, color 0.3s;
+  }
+  nav.scrolled .nav-book { background: var(--olive); color: #fff; }
+  .nav-book:hover { opacity: 0.85; }
+
+  /* HERO */
+  .hero {
+    position: relative; height: 100vh; min-height: 680px;
+    display: flex; align-items: flex-end; overflow: hidden;
+  }
+  .hero-img {
+    position: absolute; inset: 0;
+    background-image: url('https://images.unsplash.com/photo-1621605815971-fbc98d665033?w=1800&q=80');
+    background-size: cover; background-position: center 30%;
+    transform: scale(1.06); transition: transform 8s ease-out;
+  }
+  .hero-img.loaded { transform: scale(1); }
+  .hero-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to bottom, rgba(20,20,18,0.15) 0%, rgba(20,20,18,0.08) 40%, rgba(20,20,18,0.65) 100%);
+  }
+  .hero-content {
+    position: relative; z-index: 2;
+    padding: 0 52px 72px; max-width: 720px;
+  }
+  .hero-eyebrow {
+    font-size: 10px; letter-spacing: 0.28em; text-transform: uppercase;
+    color: rgba(255,255,255,0.7); margin-bottom: 20px; font-weight: 400;
+    opacity: 0; transform: translateY(12px);
+    animation: fadeUp 0.9s 0.3s forwards;
+  }
+  .hero-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(52px, 7vw, 88px); font-weight: 300;
+    line-height: 1.04; color: #fff; letter-spacing: -0.01em;
+    margin-bottom: 28px;
+    opacity: 0; transform: translateY(16px);
+    animation: fadeUp 1s 0.5s forwards;
+  }
+  .hero-title em { font-style: italic; font-weight: 300; }
+  .hero-sub {
+    font-size: 13px; line-height: 1.7; color: rgba(255,255,255,0.75);
+    max-width: 380px; font-weight: 300; letter-spacing: 0.02em;
+    margin-bottom: 40px;
+    opacity: 0; transform: translateY(12px);
+    animation: fadeUp 0.9s 0.75s forwards;
+  }
+  .hero-cta {
+    display: inline-flex; align-items: center; gap: 14px;
+    font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--olive); background: rgba(250,248,244,0.97);
+    padding: 16px 32px; text-decoration: none;
+    font-weight: 500; font-family: 'DM Sans', sans-serif;
+    transition: background 0.3s, color 0.3s;
+    opacity: 0; transform: translateY(12px);
+    animation: fadeUp 0.9s 1s forwards;
+  }
+  .hero-cta:hover { background: var(--olive); color: #fff; }
+  .hero-cta svg { transition: transform 0.3s; }
+  .hero-cta:hover svg { transform: translateX(4px); }
+  .hero-scroll {
+    position: absolute; bottom: 40px; right: 52px;
+    display: flex; flex-direction: column; align-items: center; gap: 10px;
+    opacity: 0; animation: fadeIn 1s 1.4s forwards;
+  }
+  .hero-scroll span {
+    font-size: 9px; letter-spacing: 0.22em; text-transform: uppercase;
+    color: rgba(255,255,255,0.5); writing-mode: vertical-rl; font-weight: 400;
+  }
+  .scroll-line {
+    width: 1px; height: 48px; background: rgba(255,255,255,0.3);
+    position: relative; overflow: hidden;
+  }
+  .scroll-line::after {
+    content: ''; position: absolute; top: -100%; left: 0; right: 0; height: 100%;
+    background: rgba(255,255,255,0.7); animation: scrollDown 2s 1.8s infinite;
+  }
+
+  /* INTRO */
+  .intro { display: grid; grid-template-columns: 1fr 1fr; background: var(--cream); }
+  .intro-text {
+    padding: 100px 72px 100px 52px;
+    display: flex; flex-direction: column; justify-content: center;
+  }
+  .section-label {
+    font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase;
+    color: var(--olive-lt); margin-bottom: 32px; font-weight: 500;
+  }
+  .intro-text h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(34px, 3.5vw, 50px); font-weight: 300;
+    line-height: 1.2; color: var(--charcoal); margin-bottom: 28px;
+    letter-spacing: -0.01em;
+  }
+  .intro-text h2 em { font-style: italic; color: var(--olive); }
+  .intro-text p {
+    font-size: 14px; line-height: 1.85; color: var(--muted);
+    font-weight: 300; max-width: 400px; margin-bottom: 16px;
+  }
+  .intro-panel {
+    background: var(--olive);
+    display: flex; flex-direction: column; justify-content: flex-end;
+    padding: 60px 52px; position: relative; overflow: hidden;
+  }
+  .intro-panel::before {
+    content: 'ETHOS';
+    position: absolute; top: -20px; left: -10px;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 180px; font-weight: 300;
+    color: rgba(255,255,255,0.04); letter-spacing: -0.02em;
+    line-height: 1; user-select: none;
+  }
+  .stat-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 40px;
+    position: relative; z-index: 1;
+  }
+  .stat { border-top: 1px solid rgba(255,255,255,0.2); padding-top: 20px; }
+  .stat-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 44px; font-weight: 300; color: #fff; line-height: 1; margin-bottom: 8px;
+  }
+  .stat-label {
+    font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase;
+    color: rgba(255,255,255,0.55); font-weight: 400;
+  }
+
+  /* SERVICES */
+  .services { padding: 120px 52px; background: var(--stone); }
+  .services-header {
+    display: flex; align-items: flex-end; justify-content: space-between;
+    margin-bottom: 72px; border-bottom: 1px solid rgba(69,77,59,0.15);
+    padding-bottom: 32px;
+  }
+  .services-header h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(38px, 4vw, 58px); font-weight: 300;
+    color: var(--charcoal); line-height: 1.1;
+  }
+  .services-header h2 em { font-style: italic; color: var(--olive); }
+  .services-note {
+    font-size: 12px; color: var(--muted); max-width: 260px;
+    text-align: right; line-height: 1.6; font-weight: 300;
+  }
+  .service-list { display: flex; flex-direction: column; }
+  .service-item {
+    display: grid; grid-template-columns: 60px 1fr auto;
+    align-items: center; gap: 32px;
+    padding: 32px 0; border-bottom: 1px solid rgba(69,77,59,0.1);
+    position: relative; cursor: default;
+  }
+  .service-item::before {
+    content: ''; position: absolute; left: -52px; right: -52px; top: 0; bottom: 0;
+    background: var(--olive); opacity: 0; transition: opacity 0.3s; z-index: 0;
+  }
+  .service-item:hover::before { opacity: 1; }
+  .service-item > * { position: relative; z-index: 1; transition: color 0.3s; }
+  .service-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 13px; color: var(--muted); font-weight: 300; letter-spacing: 0.1em;
+  }
+  .service-item:hover .service-num { color: rgba(255,255,255,0.5); }
+  .service-info h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 26px; font-weight: 400; color: var(--charcoal); margin-bottom: 4px;
+  }
+  .service-item:hover .service-info h3 { color: #fff; }
+  .service-info p { font-size: 12px; color: var(--muted); font-weight: 300; letter-spacing: 0.02em; }
+  .service-item:hover .service-info p { color: rgba(255,255,255,0.65); }
+  .service-price {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 28px; font-weight: 300; color: var(--olive); text-align: right;
+  }
+  .service-item:hover .service-price { color: rgba(255,255,255,0.9); }
+
+  /* LOCATIONS */
+  .locations { display: grid; grid-template-columns: 1fr 1fr; background: var(--charcoal); }
+  .location-card {
+    padding: 80px 52px; border-right: 1px solid rgba(255,255,255,0.06);
+    position: relative; overflow: hidden;
+  }
+  .location-card:last-child { border-right: none; }
+  .location-card::after {
+    content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 3px;
+    background: var(--olive); transform: scaleX(0); transform-origin: left;
+    transition: transform 0.5s ease;
+  }
+  .location-card:hover::after { transform: scaleX(1); }
+  .location-tag {
+    font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase;
+    color: var(--olive-lt); margin-bottom: 40px; font-weight: 500;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .location-tag::before { content: ''; width: 24px; height: 1px; background: var(--olive-lt); }
+  .location-card h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 42px; font-weight: 300; color: #fff; margin-bottom: 20px; line-height: 1.1;
+  }
+  .location-card h3 em { font-style: italic; color: rgba(255,255,255,0.45); }
+  .location-addr {
+    font-size: 13px; color: rgba(255,255,255,0.4); font-weight: 300;
+    line-height: 1.7; margin-bottom: 48px; letter-spacing: 0.02em;
+  }
+  .location-hours { margin-bottom: 48px; }
+  .hours-row {
+    display: flex; justify-content: space-between;
+    padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.06);
+    font-size: 12px; font-weight: 300;
+  }
+  .hours-day { color: rgba(255,255,255,0.35); letter-spacing: 0.05em; }
+  .hours-time { color: rgba(255,255,255,0.7); }
+  .location-link {
+    font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--olive-lt); text-decoration: none;
+    display: inline-flex; align-items: center; gap: 10px;
+    transition: color 0.3s, gap 0.3s; font-weight: 500;
+  }
+  .location-link:hover { color: #fff; gap: 16px; }
+
+  /* BOOKING */
+  .booking {
+    padding: 140px 52px; background: var(--cream);
+    display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+  }
+  .booking-text h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(40px, 4.5vw, 64px); font-weight: 300;
+    line-height: 1.1; color: var(--charcoal); margin-bottom: 24px;
+  }
+  .booking-text h2 em { font-style: italic; color: var(--olive); }
+  .booking-text p {
+    font-size: 14px; line-height: 1.85; color: var(--muted);
+    font-weight: 300; max-width: 380px; margin-bottom: 48px;
+  }
+  .booking-btn {
+    display: inline-flex; align-items: center; gap: 16px;
+    font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase;
+    color: #fff; background: var(--olive); padding: 18px 36px;
+    text-decoration: none; font-weight: 500; font-family: 'DM Sans', sans-serif;
+    transition: background 0.3s;
+  }
+  .booking-btn:hover { background: var(--charcoal); }
+  .booking-btn svg { transition: transform 0.3s; }
+  .booking-btn:hover svg { transform: translateX(5px); }
+  .booking-visual { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .bv-card {
+    background: var(--stone); padding: 32px 28px;
+    border: 1px solid rgba(69,77,59,0.1);
+    transition: border-color 0.3s, transform 0.3s;
+  }
+  .bv-card:hover { border-color: var(--olive); transform: translateY(-4px); }
+  .bv-card:nth-child(2) { margin-top: 32px; }
+  .bv-icon {
+    width: 36px; height: 36px; background: var(--olive);
+    display: flex; align-items: center; justify-content: center; margin-bottom: 20px;
+  }
+  .bv-card h4 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px; font-weight: 400; color: var(--charcoal); margin-bottom: 8px;
+  }
+  .bv-card p { font-size: 12px; color: var(--muted); line-height: 1.6; font-weight: 300; }
+
+  /* FOOTER */
+  footer {
+    background: var(--olive); padding: 60px 52px;
+    display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 40px; align-items: start;
+  }
+  .footer-brand {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px; font-weight: 300; letter-spacing: 0.15em; color: #fff; margin-bottom: 12px;
+  }
+  .footer-tagline { font-size: 11px; color: rgba(255,255,255,0.4); letter-spacing: 0.08em; font-weight: 300; }
+  .footer-col h4 {
+    font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase;
+    color: rgba(255,255,255,0.4); margin-bottom: 20px; font-weight: 500;
+  }
+  .footer-col p, .footer-col a {
+    font-size: 13px; color: rgba(255,255,255,0.6); line-height: 1.8;
+    font-weight: 300; text-decoration: none; display: block;
+  }
+  .footer-col a:hover { color: #fff; }
+  .footer-bottom {
+    background: var(--olive); border-top: 1px solid rgba(255,255,255,0.1);
+    padding: 20px 52px; display: flex; justify-content: space-between; align-items: center;
+  }
+  .footer-bottom p { font-size: 11px; color: rgba(255,255,255,0.3); font-weight: 300; letter-spacing: 0.05em; }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+  @keyframes fadeIn { to { opacity: 1; } }
+  @keyframes scrollDown { 0% { top: -100%; } 100% { top: 100%; } }
+
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.8s ease, transform 0.8s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .reveal-delay-1 { transition-delay: 0.15s; }
+  .reveal-delay-2 { transition-delay: 0.3s; }
+  .reveal-delay-3 { transition-delay: 0.45s; }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    nav { padding: 22px 24px; }
+    nav.scrolled { padding: 14px 24px; }
+    .nav-links { display: none; }
+    .hero-content { padding: 0 24px 56px; }
+    .hero-scroll { right: 24px; }
+    .intro { grid-template-columns: 1fr; }
+    .intro-text { padding: 72px 24px; }
+    .intro-panel { padding: 60px 24px; }
+    .services { padding: 80px 24px; }
+    .service-item { grid-template-columns: 40px 1fr auto; gap: 16px; }
+    .service-item::before { left: -24px; right: -24px; }
+    .locations { grid-template-columns: 1fr; }
+    .location-card { padding: 60px 24px; border-right: none; border-bottom: 1px solid rgba(255,255,255,0.06); }
+    .booking { grid-template-columns: 1fr; padding: 80px 24px; gap: 48px; }
+    .booking-visual { display: none; }
+    footer { grid-template-columns: 1fr; padding: 48px 24px; }
+    .footer-bottom { padding: 16px 24px; flex-direction: column; gap: 8px; text-align: center; }
+    .services-header { flex-direction: column; align-items: flex-start; gap: 16px; }
+    .services-note { text-align: left; }
+  }
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <a href="#" class="nav-logo">Ethos</a>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#locations">Locations</a></li>
+    <li><a href="#book">Book</a></li>
+  </ul>
+  <a href="https://booksy.com" target="_blank" class="nav-book">Book Now</a>
+</nav>
+
+<section class="hero">
+  <div class="hero-img" id="heroImg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">Southport &amp; Hillside &mdash; Contemporary Grooming</p>
+    <h1 class="hero-title">Ethos<br><em>Barbering</em></h1>
+    <p class="hero-sub">Precision grooming in a space designed for it. Two locations, one standard of excellence.</p>
+    <a href="https://booksy.com" target="_blank" class="hero-cta">
+      Reserve Your Chair
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+  </div>
+  <div class="hero-scroll">
+    <div class="scroll-line"></div>
+    <span>Scroll</span>
+  </div>
+</section>
+
+<section class="intro">
+  <div class="intro-text">
+    <p class="section-label reveal">The Ethos Standard</p>
+    <h2 class="reveal reveal-delay-1">Where craft<br>meets <em>intention</em></h2>
+    <p class="reveal reveal-delay-2">We built Ethos around a simple belief — that a great haircut is the result of skilled hands, quality product, and an environment that demands the best.</p>
+    <p class="reveal reveal-delay-2">No walk-ins rushed through. No corners cut. Every client leaves looking exactly as they should.</p>
+  </div>
+  <div class="intro-panel">
+    <div class="stat-grid">
+      <div class="stat reveal"><div class="stat-num">2</div><div class="stat-label">Locations</div></div>
+      <div class="stat reveal reveal-delay-1"><div class="stat-num">5+</div><div class="stat-label">Years Experience</div></div>
+      <div class="stat reveal reveal-delay-2"><div class="stat-num">5★</div><div class="stat-label">Client Rating</div></div>
+      <div class="stat reveal reveal-delay-3"><div class="stat-num">100%</div><div class="stat-label">Satisfaction</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="services" id="services">
+  <div class="services-header reveal">
+    <h2>Our <em>Services</em></h2>
+    <p class="services-note">Prices from. Director pricing applies for bookings with the owner.</p>
+  </div>
+  <div class="service-list">
+    <div class="service-item reveal">
+      <span class="service-num">01</span>
+      <div class="service-info"><h3>Skin Fade</h3><p>Classic to contemporary — precision graduation to skin</p></div>
+      <span class="service-price">£25</span>
+    </div>
+    <div class="service-item reveal reveal-delay-1">
+      <span class="service-num">02</span>
+      <div class="service-info"><h3>Cut &amp; Style</h3><p>Full cut with finish — scissor or clipper work</p></div>
+      <span class="service-price">From £25</span>
+    </div>
+    <div class="service-item reveal reveal-delay-2">
+      <span class="service-num">03</span>
+      <div class="service-info"><h3>Beard Trim</h3><p>Shape, line, and define — with hot towel finish</p></div>
+      <span class="service-price">From £10</span>
+    </div>
+    <div class="service-item reveal reveal-delay-3">
+      <span class="service-num">04</span>
+      <div class="service-info"><h3>Cut &amp; Beard</h3><p>The full treatment — hair and beard in one session</p></div>
+      <span class="service-price">From £35</span>
+    </div>
+  </div>
+</section>
+
+<section class="locations" id="locations">
+  <div class="location-card reveal">
+    <div class="location-tag">Location 01</div>
+    <h3>Ethos<br><em>Southport</em></h3>
+    <p class="location-addr">Southport<br>Merseyside</p>
+    <div class="location-hours">
+      <div class="hours-row"><span class="hours-day">Mon – Fri</span><span class="hours-time">9:00 – 18:00</span></div>
+      <div class="hours-row"><span class="hours-day">Saturday</span><span class="hours-time">8:30 – 17:00</span></div>
+      <div class="hours-row"><span class="hours-day">Sunday</span><span class="hours-time">Closed</span></div>
+    </div>
+    <a href="https://booksy.com" target="_blank" class="location-link">Book at Southport <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+  </div>
+  <div class="location-card reveal reveal-delay-1">
+    <div class="location-tag">Location 02</div>
+    <h3>Ethos<br><em>Hillside</em></h3>
+    <p class="location-addr">Hillside<br>Merseyside</p>
+    <div class="location-hours">
+      <div class="hours-row"><span class="hours-day">Mon – Fri</span><span class="hours-time">9:00 – 18:00</span></div>
+      <div class="hours-row"><span class="hours-day">Saturday</span><span class="hours-time">8:30 – 17:00</span></div>
+      <div class="hours-row"><span class="hours-day">Sunday</span><span class="hours-time">Closed</span></div>
+    </div>
+    <a href="https://booksy.com" target="_blank" class="location-link">Book at Hillside <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+  </div>
+</section>
+
+<section class="booking" id="book">
+  <div class="booking-text">
+    <p class="section-label reveal">Ready?</p>
+    <h2 class="reveal reveal-delay-1">Book your<br><em>appointment</em></h2>
+    <p class="reveal reveal-delay-2">Choose your location, pick your barber, and reserve your seat in minutes via Booksy. No waiting. No guessing.</p>
+    <a href="https://booksy.com" target="_blank" class="booking-btn reveal reveal-delay-3">
+      Open Booksy
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+  </div>
+  <div class="booking-visual">
+    <div class="bv-card reveal">
+      <div class="bv-icon"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="2" y="3" width="14" height="13" rx="1" stroke="white" stroke-width="1.3"/><path d="M2 7h14M6 2v2M12 2v2" stroke="white" stroke-width="1.3" stroke-linecap="round"/></svg></div>
+      <h4>Book Online</h4><p>Reserve in under 60 seconds via Booksy</p>
+    </div>
+    <div class="bv-card reveal reveal-delay-1">
+      <div class="bv-icon"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="7" stroke="white" stroke-width="1.3"/><path d="M9 5v4l2.5 2.5" stroke="white" stroke-width="1.3" stroke-linecap="round"/></svg></div>
+      <h4>Choose Your Barber</h4><p>Select who cuts your hair, every time</p>
+    </div>
+    <div class="bv-card reveal reveal-delay-2">
+      <div class="bv-icon"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3 9l4 4 8-8" stroke="white" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <h4>Instant Confirmation</h4><p>Confirmed immediately, reminder sent</p>
+    </div>
+    <div class="bv-card reveal reveal-delay-3">
+      <div class="bv-icon"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M9 2l1.8 3.8 4.2.6-3 3 .7 4.2L9 11.5 5.3 13.6l.7-4.2-3-3 4.2-.6L9 2z" stroke="white" stroke-width="1.3" stroke-linejoin="round"/></svg></div>
+      <h4>Two Locations</h4><p>Southport or Hillside — your choice</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div>
+    <div class="footer-brand">Ethos</div>
+    <div class="footer-tagline">Contemporary Barbering</div>
+  </div>
+  <div class="footer-col">
+    <h4>Locations</h4>
+    <p>Ethos Southport</p>
+    <p>Ethos Hillside</p>
+  </div>
+  <div class="footer-col">
+    <h4>Book</h4>
+    <a href="https://booksy.com" target="_blank">Book via Booksy →</a>
+  </div>
+</footer>
+<div class="footer-bottom">
+  <p>&copy; 2025 Ethos Contemporary Barbering</p>
+  <p>Southport &amp; Hillside</p>
+</div>
+
+<script>
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 60);
+  });
+  setTimeout(() => document.getElementById('heroImg').classList.add('loaded'), 100);
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
