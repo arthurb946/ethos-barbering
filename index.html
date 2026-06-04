@@ -12,14 +12,15 @@
 
   :root {
     --stone:    #f0ece6;
-    --stone-2:  #e8e2d9;
+    --stone-2:  #e2dbd0;
     --olive:    #454d3b;
     --olive-lt: #6b7560;
-    --cream:    #faf8f4;
+    --cream:    #f5f0e8;
     --charcoal: #1e1e1c;
     --cream-dk: #f0ece6;
     --text:     #2a2a27;
     --muted:    #7a7870;
+    --orange:   #c4622d;
   }
 
   html { scroll-behavior: smooth; }
@@ -147,6 +148,7 @@
     font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase;
     color: var(--olive-lt); margin-bottom: 32px; font-weight: 500;
   }
+  .about-team .section-label { color: rgba(255,255,255,0.45); }
 
   /* INTERIOR + TEAM */
   .about {
@@ -178,7 +180,7 @@
     color: #fff; line-height: 1.4; letter-spacing: 0.01em;
   }
   .about-team {
-    background: var(--cream);
+    background: var(--olive);
     padding: 72px 52px;
     display: flex; flex-direction: column; justify-content: center;
   }
@@ -194,7 +196,7 @@
   .team-card { display: flex; flex-direction: column; gap: 12px; }
   .team-photo {
     width: 100%; aspect-ratio: 3/4;
-    background: var(--stone-2);
+    background: rgba(255,255,255,0.1);
     position: relative; overflow: hidden;
   }
   .team-photo img {
@@ -277,48 +279,48 @@
   .service-item:hover .service-price { color: rgba(255,255,255,0.9); }
 
   /* LOCATIONS */
-  .locations { display: grid; grid-template-columns: 1fr 1fr; background: var(--charcoal); }
+  .locations { display: grid; grid-template-columns: 1fr 1fr; background: var(--orange); }
   .location-card {
-    padding: 80px 52px; border-right: 1px solid rgba(255,255,255,0.06);
+    padding: 80px 52px; border-right: 1px solid rgba(0,0,0,0.12);
     position: relative; overflow: hidden;
   }
   .location-card:last-child { border-right: none; }
   .location-card::after {
     content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 3px;
-    background: var(--olive); transform: scaleX(0); transform-origin: left;
+    background: var(--charcoal); transform: scaleX(0); transform-origin: left;
     transition: transform 0.5s ease;
   }
   .location-card:hover::after { transform: scaleX(1); }
   .location-tag {
     font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase;
-    color: var(--olive-lt); margin-bottom: 40px; font-weight: 500;
+    color: rgba(0,0,0,0.45); margin-bottom: 40px; font-weight: 500;
     display: flex; align-items: center; gap: 12px;
   }
-  .location-tag::before { content: ''; width: 24px; height: 1px; background: var(--olive-lt); }
+  .location-tag::before { content: ''; width: 24px; height: 1px; background: rgba(0,0,0,0.35); }
   .location-card h3 {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 42px; font-weight: 300; color: #fff; margin-bottom: 20px; line-height: 1.1;
+    font-size: 42px; font-weight: 300; color: var(--charcoal); margin-bottom: 20px; line-height: 1.1;
   }
-  .location-card h3 em { font-style: italic; color: rgba(255,255,255,0.45); }
+  .location-card h3 em { font-style: italic; color: rgba(30,30,28,0.45); }
   .location-addr {
-    font-size: 13px; color: rgba(255,255,255,0.4); font-weight: 300;
+    font-size: 13px; color: rgba(0,0,0,0.45); font-weight: 300;
     line-height: 1.7; margin-bottom: 48px; letter-spacing: 0.02em;
   }
   .location-hours { margin-bottom: 48px; }
   .hours-row {
     display: flex; justify-content: space-between;
-    padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.06);
+    padding: 10px 0; border-bottom: 1px solid rgba(0,0,0,0.1);
     font-size: 12px; font-weight: 300;
   }
-  .hours-day { color: rgba(255,255,255,0.35); letter-spacing: 0.05em; }
-  .hours-time { color: rgba(255,255,255,0.7); }
+  .hours-day { color: rgba(0,0,0,0.45); letter-spacing: 0.05em; }
+  .hours-time { color: rgba(0,0,0,0.75); }
   .location-link {
     font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase;
-    color: var(--olive-lt); text-decoration: none;
+    color: rgba(0,0,0,0.6); text-decoration: none;
     display: inline-flex; align-items: center; gap: 10px;
     transition: color 0.3s, gap 0.3s; font-weight: 500;
   }
-  .location-link:hover { color: #fff; gap: 16px; }
+  .location-link:hover { color: var(--charcoal); gap: 16px; }
 
   /* BOOKING */
   .booking {
@@ -423,6 +425,32 @@
     .services-header { flex-direction: column; align-items: flex-start; gap: 16px; }
     .services-note { text-align: left; }
   }
+
+  /* ETHOS PANEL */
+  .ethos-panel {
+    background: var(--olive);
+    padding: 100px 52px;
+    position: relative; overflow: hidden;
+  }
+  .ethos-panel-inner { max-width: 640px; position: relative; z-index: 1; }
+  .ethos-bg-text {
+    position: absolute; top: -40px; right: -20px;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 220px; font-weight: 300;
+    color: rgba(255,255,255,0.04); letter-spacing: -0.02em;
+    line-height: 1; user-select: none; pointer-events: none;
+  }
+  .ethos-panel h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(36px, 4vw, 56px); font-weight: 300;
+    color: var(--stone); line-height: 1.15; margin-bottom: 28px;
+  }
+  .ethos-panel h2 em { font-style: italic; color: rgba(240,236,230,0.55); }
+  .ethos-panel p {
+    font-size: 14px; line-height: 1.85; color: rgba(240,236,230,0.65);
+    font-weight: 300; max-width: 480px;
+  }
+
 </style>
 </head>
 <body>
@@ -434,7 +462,7 @@
     <li><a href="#locations">Locations</a></li>
     <li><a href="#book">Book</a></li>
   </ul>
-  <a href="https://booksy.com" target="_blank" class="nav-book">Book Now</a>
+  <a href="https://booksy.com/en-gb/12327_ethos-southport_barber_749680_southport#ba_s=sh_1" target="_blank" class="nav-book">Book Now</a>
 </nav>
 
 <section class="hero">
@@ -444,7 +472,7 @@
     <p class="hero-eyebrow">Southport &amp; Hillside &mdash; Contemporary Grooming</p>
     <h1 class="hero-title">Ethos<br><em>Barbering</em></h1>
     <p class="hero-sub">Precision grooming in a space designed for it. Two locations, one standard of excellence.</p>
-    <a href="https://booksy.com" target="_blank" class="hero-cta">
+    <a href="https://booksy.com/en-gb/12327_ethos-southport_barber_749680_southport#ba_s=sh_1" target="_blank" class="hero-cta">
       Reserve Your Chair
       <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
     </a>
@@ -539,24 +567,32 @@
   <div class="location-card reveal">
     <div class="location-tag">Location 01</div>
     <h3>Ethos<br><em>Southport</em></h3>
-    <p class="location-addr">Southport<br>Merseyside</p>
+    <p class="location-addr">Tulketh Street<br>Southport</p>
     <div class="location-hours">
-      <div class="hours-row"><span class="hours-day">Mon – Fri</span><span class="hours-time">9:00 – 18:00</span></div>
-      <div class="hours-row"><span class="hours-day">Saturday</span><span class="hours-time">8:30 – 17:00</span></div>
-      <div class="hours-row"><span class="hours-day">Sunday</span><span class="hours-time">Closed</span></div>
+      <div class="hours-row"><span class="hours-day">Sunday</span><span class="hours-time">11:00 – 16:00</span></div>
+      <div class="hours-row"><span class="hours-day">Monday</span><span class="hours-time">9:00 – 19:00</span></div>
+      <div class="hours-row"><span class="hours-day">Tuesday</span><span class="hours-time">10:00 – 19:00</span></div>
+      <div class="hours-row"><span class="hours-day">Wednesday</span><span class="hours-time">10:00 – 19:00</span></div>
+      <div class="hours-row"><span class="hours-day">Thursday</span><span class="hours-time">10:00 – 19:00</span></div>
+      <div class="hours-row"><span class="hours-day">Friday</span><span class="hours-time">10:00 – 19:00</span></div>
+      <div class="hours-row"><span class="hours-day">Saturday</span><span class="hours-time">10:00 – 19:00</span></div>
     </div>
-    <a href="https://booksy.com" target="_blank" class="location-link">Book at Southport <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    <a href="https://booksy.com/en-gb/12327_ethos-southport_barber_749680_southport#ba_s=sh_1" target="_blank" class="location-link">Book at Southport <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
   </div>
   <div class="location-card reveal reveal-delay-1">
     <div class="location-tag">Location 02</div>
     <h3>Ethos<br><em>Hillside</em></h3>
-    <p class="location-addr">Hillside<br>Merseyside</p>
+    <p class="location-addr">Sandon Road<br>Hillside</p>
     <div class="location-hours">
-      <div class="hours-row"><span class="hours-day">Mon – Fri</span><span class="hours-time">9:00 – 18:00</span></div>
-      <div class="hours-row"><span class="hours-day">Saturday</span><span class="hours-time">8:30 – 17:00</span></div>
-      <div class="hours-row"><span class="hours-day">Sunday</span><span class="hours-time">Closed</span></div>
+      <div class="hours-row"><span class="hours-day">Sunday</span><span class="hours-time">11:00 – 16:00</span></div>
+      <div class="hours-row"><span class="hours-day">Monday</span><span class="hours-time">9:00 – 19:00</span></div>
+      <div class="hours-row"><span class="hours-day">Tuesday</span><span class="hours-time">10:00 – 19:00</span></div>
+      <div class="hours-row"><span class="hours-day">Wednesday</span><span class="hours-time">10:00 – 19:00</span></div>
+      <div class="hours-row"><span class="hours-day">Thursday</span><span class="hours-time">10:00 – 19:00</span></div>
+      <div class="hours-row"><span class="hours-day">Friday</span><span class="hours-time">10:00 – 19:00</span></div>
+      <div class="hours-row"><span class="hours-day">Saturday</span><span class="hours-time">10:00 – 19:00</span></div>
     </div>
-    <a href="https://booksy.com" target="_blank" class="location-link">Book at Hillside <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    <a href="https://booksy.com/en-gb/144336_ethos-hillside_barber_749680_southport#ba_s=sh_1" target="_blank" class="location-link">Book at Hillside <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
   </div>
 </section>
 
@@ -565,7 +601,7 @@
     <p class="section-label reveal">Ready?</p>
     <h2 class="reveal reveal-delay-1">Book your<br><em>appointment</em></h2>
     <p class="reveal reveal-delay-2">Choose your location, pick your barber, and reserve your seat in minutes via Booksy. No waiting. No guessing.</p>
-    <a href="https://booksy.com" target="_blank" class="booking-btn reveal reveal-delay-3">
+    <a href="https://booksy.com/en-gb/12327_ethos-southport_barber_749680_southport#ba_s=sh_1" target="_blank" class="booking-btn reveal reveal-delay-3">
       Open Booksy
       <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
     </a>
@@ -602,7 +638,7 @@
   </div>
   <div class="footer-col">
     <h4>Book</h4>
-    <a href="https://booksy.com" target="_blank">Book via Booksy →</a>
+    <a href="https://booksy.com/en-gb/12327_ethos-southport_barber_749680_southport#ba_s=sh_1" target="_blank">Book via Booksy →</a>
   </div>
 </footer>
 <div class="footer-bottom">
